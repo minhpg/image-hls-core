@@ -24,7 +24,7 @@ const worker = new Worker(serviceNames.DOWNLOAD, async job => {
     const video = await videoSchema.findOne({ fileId }).exec()
     if (!video) throw new Error('video not found!')
     try {
-        const qualities = await downloadQualities(url, fileId, process.env.DOWNLOAD_DEST)
+        const qualities = await downloadQualities(playlistUrl, fileId, process.env.DOWNLOAD_DEST)
         for(const quality of qualities) {
             const file = new fileSchema({
                 ...quality
