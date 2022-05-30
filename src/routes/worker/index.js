@@ -1,5 +1,5 @@
 const downloadQueue = require('../../queues/download')
-
+const videoSchema = require('../../models/video')
 module.exports = async (req, res) => {
     try { 
         const playlistUrl = req.query.playlistUrl
