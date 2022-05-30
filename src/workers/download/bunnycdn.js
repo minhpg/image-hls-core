@@ -47,6 +47,7 @@ const downloadSegment = (url, filePath) => {
 
 const downloadSegmentInject = async (url, filePath) => {
     console.log(url)
+    if(fs.existsSync(filePath)) return
     const data = await got.get(url, {
             headers: {
                 referer: 'https://video.bunnycdn.com/'
