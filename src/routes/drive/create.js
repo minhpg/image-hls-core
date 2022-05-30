@@ -22,7 +22,6 @@ module.exports = async (req,res) => {
         })
         await video.save()
         await axios.get(`http://localhost:${process.env.BUNNYCDN_PORT}/api/files/create/`+fileId)
-        videoQueue.add(fileId, { fileId , original})        
         res.json({
             status: 'ok',
             message: 'video created',
