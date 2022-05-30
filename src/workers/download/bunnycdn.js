@@ -80,7 +80,7 @@ const downloadQualities = async (url, fileId, destinationFolder = 'downloads') =
                 const segmentPath = path.join(qualityPath, segment.uri)
                 const segmentUrl = new URL(segment.uri, playlistUrl.href)
                 await downloadSegmentInject(segmentUrl.href, segmentPath)
-                segments[index] = segmentPath
+                segments[index].uri = segmentPath
             }
             playlistData.manifest.segments = segments
             playlistData.manifest.res =  playlist.attributes.RESOLUTION.height
