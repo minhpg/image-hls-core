@@ -11,7 +11,7 @@ const serviceNames = require('../serviceNames')
 const upload = require('../kapwing-api/upload')
 
 require('dotenv').config()
-require('../../db')()
+require('../db')()
 console.log(`Starting ${serviceNames.UPLOAD} worker`)
 
 
