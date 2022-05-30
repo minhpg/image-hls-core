@@ -2,8 +2,8 @@ const { Worker } = require('bullmq')
 
 const path = require('path')
 
-const fileSchema = require('../../models/file')
-const videoSchema = require('../../models/vide')
+const fileSchema = require('../models/file')
+const videoSchema = require('../models/vide')
 
 
 const serviceNames = require('../../serviceNames')
