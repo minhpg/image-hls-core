@@ -1,0 +1,23 @@
+{
+    "watch": ["api", "download-worker", "upload-worker", "progress-worker"],
+    "ignore_watch" : ["node_modules", "downloads"],
+    "apps": [
+        {
+            "name": "api",
+            "script": "src/app.js"
+        },
+        {
+            "name": "download-worker",
+            "script": "src/workers/download.js"
+
+        },
+        {
+            "name": "upload-worker",
+            "script": "src/workers/upload.js"
+        },
+        {
+            "name": "progress-worker",
+            "script": "src/workers/progress.js"
+        }
+    ]
+}
