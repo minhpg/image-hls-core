@@ -26,7 +26,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
         const qualities = video.files
         for(const quality of qualities) {
             const file = await fileSchema.findOne(quality).exec()
-            const segments = quality.segments
+            const segments = file.segments
             for(const segment of segments) {
                 const url = await upload(segment.uri)
                 segment.uri = url
