@@ -82,7 +82,9 @@ const downloadQualities = async (url, fileId, destinationFolder = 'downloads') =
                 segments[index] = segmentPath
             }
             playlistData.manifest.segments = segments
-            qualities.push(playlistData)
+            playlistData.manifest.res =  playlist.attributes.RESOLUTION.height
+            playlistData.manifest.bandwidth = playlist.attributes.bandwidth
+            qualities.push(playlistData.manifest)
         }
         return qualities
     }
