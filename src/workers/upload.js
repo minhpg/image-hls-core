@@ -28,6 +28,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
             const file = await fileSchema.findOne(quality).exec()
             const segments = file.segments
             for(const segment of segments) {
+                console.log(segment)
                 const url = await upload(segment.uri)
                 segment.uri = url
             }
