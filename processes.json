@@ -8,12 +8,12 @@
         },
         {
             "name": "download-worker",
-            "script": "src/workers/download.js"
+            "script": "src/workers/download"
 
         },
         {
             "name": "upload-worker",
-            "script": "src/workers/upload"
+            "script": "src/workers/upload.js"
         }
     ]
 }
