@@ -13,11 +13,7 @@
         },
         {
             "name": "upload-worker",
-            "script": "src/workers/upload.js"
-        },
-        {
-            "name": "progress-worker",
-            "script": "src/workers/progress.js"
+            "script": "src/workers/upload"
         }
     ]
 }
