@@ -7,11 +7,9 @@ const videoSchema = new mongoose.Schema({
     },
     downloaded: {
         type: Boolean,
-        required: true
     },
     uploaded: {
         type: Boolean,
-        required: true
     },
     error: {
         type: Boolean,

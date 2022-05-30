@@ -37,7 +37,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
         }
         await video.updateOne({
             files,
-            downloaded: true
+            uploaded: true
         }).exec()
         await uploadQueue.add(fileId, {
             fileId,
