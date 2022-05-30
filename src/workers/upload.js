@@ -6,7 +6,7 @@ const fileSchema = require('../models/file')
 const videoSchema = require('../models/video')
 
 
-const serviceNames = require('../../serviceNames')
+const serviceNames = require('../serviceNames')
 
 const upload = require('../kapwing-api/upload')
 
