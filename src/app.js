@@ -28,6 +28,8 @@ app.get('/api/drive/retry', require('./routes/drive/retries'))
 app.get('/api/drive/retry/:id', require('./routes/drive/retry'))
 app.get('/api/drive/create/:id', require('./routes/drive/create'))
 app.get('/api/drive/get/:id', require('./routes/drive/get'))
+app.get('/api/worker/:id', require('./routes/worker'))
+
 app.use('/api/stat', require('./routes/stat'))
 
 app.use('/dist', express.static('static'))
