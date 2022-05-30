@@ -3,16 +3,16 @@
     "ignore_watch" : ["node_modules", "downloads"],
     "apps": [
         {
-            "name": "api",
+            "name": "hls-api",
             "script": "src/app.js"
         },
         {
-            "name": "download-worker",
+            "name": "hls-download-worker",
             "script": "src/workers/download"
 
         },
         {
-            "name": "upload-worker",
+            "name": "hls-upload-worker",
             "script": "src/workers/upload.js"
         }
     ]
