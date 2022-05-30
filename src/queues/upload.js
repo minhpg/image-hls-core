@@ -1,7 +1,7 @@
 const { Queue, QueueScheduler } = require('bullmq')
 const serviceNames = require('../serviceNames')
 const queue = new Queue(serviceNames.UPLOAD,{
-    connection: require('../redisConnection'),
+    connection: require('../queueConnection'),
     defaultJobOptions: {
         attempts: 3,
         backoff: {
