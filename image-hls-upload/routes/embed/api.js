@@ -9,7 +9,8 @@ module.exports = async (req, res) => {
         let data = {}
         const files = []
         for (const { _id } of video.files) {
-            const file = await fileSchema.findOne({ _id, uploaded: true }, { uploaded: true }).exec()
+            const file = await fileSchema.findOne({ _id, uploaded: true }, { segments: false }).exec()
+            console.log(file)
             if (file) files.push(file)
         }
         if (files.length < video.files.length) {
