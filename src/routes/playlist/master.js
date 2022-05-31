@@ -20,9 +20,14 @@ module.exports = (req, res) => {
                 resolve()
             }
             const files = await video.files.map((info) => {
-                return fileSchema.findOne(info, {
+                return fileSchema.findOne({
+                    uploaded: true, 
+                    ...info
+                }, 
+                    {
                     segments: false
-                }).exec()
+                }
+                ).exec()
             })
             var playlist = [
                 `#EXTM3U`,
