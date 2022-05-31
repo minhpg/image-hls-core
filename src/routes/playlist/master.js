@@ -19,9 +19,9 @@ module.exports = (req, res) => {
                 res.json({ message: 'fail', message: 'video not found' })
                 resolve()
             }
-            const files = await video.files.map((info) => {
+            const files = await video.files.map(async(info) => {
                 console.log(info)
-                return fileSchema.findOne({
+                const data = await fileSchema.findOne({
                     uploaded: true,
                     ...info
                 },
@@ -29,6 +29,7 @@ module.exports = (req, res) => {
                         segments: false
                     }
                 ).exec()
+                return data
             })
             var playlist = [
                 `#EXTM3U`,
