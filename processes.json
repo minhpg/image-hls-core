@@ -1,5 +1,4 @@
 {
-    "watch": ["api", "download-worker", "upload-worker", "progress-worker"],
     "ignore_watch" : ["node_modules", "downloads"],
     "apps": [
         {
