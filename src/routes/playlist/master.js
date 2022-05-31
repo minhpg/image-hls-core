@@ -20,9 +20,12 @@ module.exports = (req, res) => {
                 resolve()
             }
             console.log(video.files)
-            const files = await video.files.map(async(info) => {
-                console.log(info)
-                const data = await fileSchema.findOne({
+            var playlist = [
+                `#EXTM3U`,
+                `#EXT-X-VERSION:3`,
+            ]
+            for (const info of video.files) {
+                const file = await fileSchema.findOne({
                     uploaded: true,
                     ...info
                 },
@@ -30,14 +33,6 @@ module.exports = (req, res) => {
                         segments: false
                     }
                 ).exec()
-                return data
-            })
-            var playlist = [
-                `#EXTM3U`,
-                `#EXT-X-VERSION:3`,
-            ]
-            for (const file of files) {
-                console.log(file)
                 playlist.push(`#EXT-X-STREAM-INF:BANDWIDTH=${file.res * 250},RESOLUTION=${Math.round(file.res / 9 * 16)}x${file.res}`)
                 playlist.push(`${process.env.HOST}/api/m3u8/${file._id}/${file.res}/video.m3u8`)
             }
