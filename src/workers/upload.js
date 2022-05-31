@@ -29,7 +29,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
     try {
         const segments = file.segments
         const limiter = new Bottleneck({
-            maxConcurrent: 100
+            minTime: 100
         });
         for (const segment of segments) {
             const url = await limiter.schedule(() =>
