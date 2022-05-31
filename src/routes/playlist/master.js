@@ -19,6 +19,7 @@ module.exports = (req, res) => {
                 res.json({ message: 'fail', message: 'video not found' })
                 resolve()
             }
+            console.log(video.files)
             const files = await video.files.map(async(info) => {
                 console.log(info)
                 const data = await fileSchema.findOne({
