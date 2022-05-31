@@ -6,14 +6,14 @@ module.exports = (req, res) => {
         const id = req.params.id
         const video = await videoSchema.findOne({ _id: id }).exec()
         if (!video) throw new Error('video does not exist!')
-        if (!video.original) throw new Error('video is processing!')
         let data = {}
         const files = []
         for (const { _id } of video.files) {
             const file = await fileSchema.findOne({ _id, uploaded: true }, { uploaded: true }).exec()
             if (file) files.push(file)
         }
-        if (files.concatlength < video.files.length) {
+        if (files.length < video.files.length) {
+            if (!video.original) throw new Error('video is processing!')
             data = {
                 file: video.original,
                 type: 'mp4'
