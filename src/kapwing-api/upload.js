@@ -71,6 +71,7 @@ const upload = async (file) => {
     const uploadData = await getUploadBucket()
     const { read_uri, upload_uri } = uploadData.uris[0]
     await uploadProcess(upload_uri, file)
+    console.log(`uploaded ${file} to ${read_uri}`)
     return read_uri
 }
 
