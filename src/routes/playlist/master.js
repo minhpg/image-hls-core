@@ -37,6 +37,7 @@ module.exports = (req, res) => {
                 `#EXT-X-VERSION:3`,
             ]
             for (const file of files) {
+                console.log(file)
                 playlist.push(`#EXT-X-STREAM-INF:BANDWIDTH=${file.res * 250},RESOLUTION=${Math.round(file.res / 9 * 16)}x${file.res}`)
                 playlist.push(`${process.env.HOST}/api/m3u8/${file._id}/${file.res}/video.m3u8`)
             }
