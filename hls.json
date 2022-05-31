@@ -1,0 +1,18 @@
+{
+    "ignore_watch" : ["node_modules", "downloads"],
+    "apps": [
+        {
+            "name": "hls-api",
+            "script": "image-hls-upload/app.js"
+        },
+        {
+            "name": "hls-download-worker",
+            "script": "image-hls-upload/workers/download"
+
+        },
+        {
+            "name": "hls-upload-worker",
+            "script": "image-hls-upload/workers/upload.js"
+        }
+    ]
+}

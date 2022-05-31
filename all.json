@@ -1,0 +1,35 @@
+{
+    "ignore_watch" : ["node_modules", "downloads"],
+    "apps": [
+        {
+            "name": "hls-api",
+            "script": "image-hls-upload/app.js"
+        },
+        {
+            "name": "hls-download-worker",
+            "script": "image-hls-upload/workers/download"
+
+        },
+        {
+            "name": "hls-upload-worker",
+            "script": "image-hls-upload/workers/upload.js"
+        },
+        {
+            "name": "bunny-api",
+            "script": "bunnycdn-encoding/app.js"
+        },
+        {
+            "name": "bunny-download-worker",
+            "script": "bunnycdn-encoding/workers/download.js"
+
+        },
+        {
+            "name": "bunny-upload-worker",
+            "script": "bunnycdn-encoding/workers/upload.js"
+        },
+        {
+            "name": "bunny-progress-worker",
+            "script": "bunnycdn-encoding/workers/progress.js"
+        }
+    ]
+}

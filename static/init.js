@@ -1,4 +1,4 @@
-const initPlayer = (link) => {
+const initPlayer = ({ file, type}) => {
     let player = jwplayer("player");
     let object = {
         key: "W7zSm81+mmIsg7F+fyHRKhF3ggLkTqtGMhvI92kbqf/ysE99",
@@ -8,8 +8,8 @@ const initPlayer = (link) => {
         stretching: "uniform",
         width: "100%",
         height: "100%",
-        file: link,
-        type: "hls",
+        file,
+        type,
         preload: "auto",
     }
     player.setup(object);
@@ -36,10 +36,11 @@ const initPlayer = (link) => {
     });
 }
 
-const getInfo = () => {
-    return new Promise((resolve, reject) => {
-        initPlayer(`/api/m3u8/${id}/master.m3u8`)
-    })
+const getInfo = async () => {
+    const response = await fetch('/api/player/'+id)
+    const { success, message, data } = await response.json()
+    if(!success) throw new Error(message)
+    initPlayer(data)
 }
 getInfo().catch((err) => {
     console.error(err)
