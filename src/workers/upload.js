@@ -33,7 +33,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
         });
         for(const segment of segments) {
             const url = await limiter.schedule(() =>
-            uploadFile(segment.uri)
+            upload(segment.uri)
         )
             segment.uri = url
         }
