@@ -2,6 +2,8 @@ const { Worker } = require('bullmq')
 
 const path = require('path')
 const rimraf = require('rimraf')
+const Bottleneck = require('bottleneck')
+
 const fileSchema = require('../models/file')
 const videoSchema = require('../models/video')
 
@@ -23,6 +25,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
     if (!video) throw new Error('video not found!')
     const file = await fileSchema.findOne({ _id: id }).exec()
     if (!file) throw new Error('file not found!')
+    console.log(`uploading ${fileId} - ${file.res}p`)
     try {
         const segments = file.segments
         const limiter = new Bottleneck({
