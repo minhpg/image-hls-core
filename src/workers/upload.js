@@ -1,7 +1,7 @@
 const { Worker } = require('bullmq')
 
 const path = require('path')
-
+const rimraf = require('rimraf')
 const fileSchema = require('../models/file')
 const videoSchema = require('../models/video')
 
@@ -18,41 +18,35 @@ console.log(`Starting ${serviceNames.UPLOAD} worker`)
 if (!process.env.DOWNLOAD_DEST) process.env.DOWNLOAD_DEST = 'downloads'
 
 const worker = new Worker(serviceNames.UPLOAD, async job => {
-    const files = []
-    const { fileId, playlistUrl } = job.data
+    const { fileId, file } = job.data
     const video = await videoSchema.findOne({ fileId }).exec()
     if (!video) throw new Error('video not found!')
     try {
-        const qualities = video.files
-        for(const quality of qualities) {
-            const file = await fileSchema.findOne(quality).exec()
-            const segments = file.segments
-            for(const segment of segments) {
-                console.log(segment)
-                const url = await upload(segment.uri)
-                segment.uri = url
-            }
-            file.segments = segments
-            await file.save()
-            files.push(file)
+        const file = await fileSchema.findOne({ _id: file }).exec()
+        const segments = file.segments
+        const limiter = new Bottleneck({
+            maxConcurrent: 100
+        });
+        for(const segment of segments) {
+            const url = await limiter.schedule(() =>
+            uploadFile(segment.uri)
+        )
+            segment.uri = url
         }
-        await video.updateOne({
-            files,
-            uploaded: true
-        }).exec()
-        await uploadQueue.add(fileId, {
-            fileId,
-            playlistUrl,
-        })
+        file.segments = segments
+        file.uploaded = true
+        const folder = path.join(process.env.DOWNLOAD_DEST, fileId, file.res.toString())
+        rimraf.sync(folder)
+        await file.save()
     }
     catch (err) {
-        await video.updateOne({
+        await file.updateOne({
                 error: true, error_message: err.message,
         }).exec()
         throw err
     }
     return
-}, { concurrency: 1, connection: require('../queueConnection') });
+}, { concurrency: 5, connection: require('../queueConnection') });
 
 worker.on('completed', (job) => {
     console.log(`${job.id} has completed!`);

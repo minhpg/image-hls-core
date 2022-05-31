@@ -5,6 +5,10 @@ const fileSchema = new mongoose.Schema({
         type : String,
         required: true
     },
+    uploaded: {
+        type: Boolean,
+        default: false
+    },
     bandwidth: Number,
     allowCache: Boolean,
     discontinuityStarts: Array,
@@ -31,6 +35,13 @@ const fileSchema = new mongoose.Schema({
     endList: {
         type: Boolean,
         required: true
+    },
+    error: {
+        type: Boolean,
+        default: false
+    },
+    error_message : {
+        type: String
     }
 });
 

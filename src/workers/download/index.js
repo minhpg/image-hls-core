@@ -30,16 +30,16 @@ const worker = new Worker(serviceNames.DOWNLOAD, async job => {
                 ...quality
             })
             await file.save()
-            files.push(file)
+            await uploadQueue.add(fileId, {
+                fileId,
+                playlistUrl,
+                file: file._id
+            })
         }
         await video.updateOne({
             files,
             downloaded: true
         }).exec()
-        await uploadQueue.add(fileId, {
-            fileId,
-            playlistUrl,
-        })
     }
     catch (err) {
         await video.updateOne({
