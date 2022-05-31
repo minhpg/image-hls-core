@@ -20,19 +20,13 @@ module.exports = (req, res) => {
             }
             if (data) {
                 res.send(data)
-                return resolve()
+                 resolve()
             }
-            const video = await videoSchema.findOne({ _id: req.params.id, files: {$exists:true, $not: {$size: 0}} }).exec()
-            if (!video) {
-                res.status(404)
-                res.json({ message: 'fail', message: 'file not found' })
-                return resolve()
-            }
-            const file = await fileSchema.findOne({_id:video.files[0]._id}).exec()
+            const file = await fileSchema.findOne({_id: req.params.id}).exec()
             if (!file) {
                 res.status(404)
                 res.json({ message: 'fail', message: 'file not found' })
-                return resolve()
+                resolve()
             }
             var playlist = [
                 `#EXTM3U`,
@@ -43,7 +37,7 @@ module.exports = (req, res) => {
             ]
             const promises = file.segments.map((segment,index) => {
                 return new Promise((resolve, reject) =>{
-                    encoded_url = encodeUrl(segment.url)
+                    encoded_url = encodeUrl(segment.uri)
                     resolve(`${process.env.HOST}/api/hls/${encoded_url}`) 
                 })
             })
@@ -62,7 +56,7 @@ module.exports = (req, res) => {
                         reject(err)
                     }
                     res.send(body)
-                    return resolve()
+                    resolve()
                 })
             })
         })

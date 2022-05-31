@@ -15,6 +15,7 @@ router.use((req, res, next) => {
 
 // router.use(checkReferrer(domainsWhitelist.join(','), 'https://google.com'))
 
-router.get('/:id/master.m3u8',require('./quality')) 
+router.get('/:id/:quality/video.m3u8',require('./quality')) 
+router.get('/:id/master.m3u8',require('./master')) 
 
 module.exports = router
