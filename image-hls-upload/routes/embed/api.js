@@ -1,7 +1,7 @@
 const videoSchema = require('../../models/video')
 const fileSchema = require('../../models/file')
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     try {
         const id = req.params.id
         const video = await videoSchema.findOne({ _id: id }).exec()
