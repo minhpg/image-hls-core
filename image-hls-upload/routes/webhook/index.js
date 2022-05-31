@@ -7,10 +7,10 @@ module.exports = async (req, res) => {
         const file = await fileSchema.findOne({ 'uploadedTo.videoId': VideoGuid, 'uploadedTo.libraryId': VideoLibraryId }).exec()
         console.log(file)
         if (file) {
-            const { fileId, uploadedTo } = file
+            const { id, uploadedTo } = file
             const { libraryId, videoId, libraryAccessKey } = uploadedTo
             await progressQueue.add(file.fileId, {
-                fileId,
+                fileId: id,
                 libraryId,
                 videoId,
                 accessKey: libraryAccessKey
