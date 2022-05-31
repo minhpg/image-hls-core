@@ -31,19 +31,21 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
         const limiter = new Bottleneck({
             maxConcurrent: 100
         });
-        for(const segment of segments) {
+        for (const segment of segments) {
             const url = await limiter.schedule(() =>
-            upload(segment.uri)
-        )
+                upload(segment.uri)
+            )
             segment.uri = url
         }
         const folder = path.join(process.env.DOWNLOAD_DEST, fileId, file.res.toString())
         rimraf.sync(folder)
-        await file.updateOne({ segments , uploaded: true}).exec()
+        await file.updateOne({
+            segments, uploaded: true, error: false, error_message: null,
+        }).exec()
     }
     catch (err) {
         await file.updateOne({
-                error: true, error_message: err.message,
+            error: true, error_message: err.message,
         }).exec()
         throw err
     }

@@ -19,7 +19,7 @@ console.log(`Starting ${serviceNames.DOWNLOAD} worker`)
 if (!process.env.DOWNLOAD_DEST) process.env.DOWNLOAD_DEST = 'downloads'
 
 const worker = new Worker(serviceNames.DOWNLOAD, async job => {
-    const files = []
+    let files = []
     const { fileId, playlistUrl } = job.data
     const video = await videoSchema.findOne({ fileId }).exec()
     if (!video) throw new Error('video not found!')
@@ -35,10 +35,13 @@ const worker = new Worker(serviceNames.DOWNLOAD, async job => {
                 playlistUrl,
                 id: file._id
             })
+            files.push(file)
         }
         await video.updateOne({
             files,
-            downloaded: true
+            downloaded: true,
+            error: false, 
+            error_message: null,
         }).exec()
     }
     catch (err) {
