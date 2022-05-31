@@ -27,14 +27,16 @@ module.exports = (req, res) => {
             for (const info of video.files) {
                 const file = await fileSchema.findOne({
                     uploaded: true,
-                    ...info
+                    _id: info._id
                 },
                     {
                         segments: false
                     }
                 ).exec()
-                playlist.push(`#EXT-X-STREAM-INF:BANDWIDTH=${file.res * 250},RESOLUTION=${Math.round(file.res / 9 * 16)}x${file.res}`)
-                playlist.push(`${process.env.HOST}/api/m3u8/${file._id}/${file.res}/video.m3u8`)
+                if(file){
+                    playlist.push(`#EXT-X-STREAM-INF:BANDWIDTH=${file.res * 250},RESOLUTION=${Math.round(file.res / 9 * 16)}x${file.res}`)
+                    playlist.push(`${process.env.HOST}/api/m3u8/${file._id}/${file.res}/video.m3u8`)    
+                }
             }
             playlist.push('#EXT-X-ENDLIST')
             const body = playlist.join('\n')
