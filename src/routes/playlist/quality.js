@@ -9,7 +9,7 @@ const encodeUrl = (url) => {
     for (var i = str.length - 1; i >= 0; i--) {
         newString += str[i];
     }
-    return newString.replace(/=/g,'');
+    return newString.replace(/=/g, '');
 }
 
 module.exports = (req, res) => {
@@ -20,9 +20,9 @@ module.exports = (req, res) => {
             }
             if (data) {
                 res.send(data)
-                 resolve()
+                resolve()
             }
-            const file = await fileSchema.findOne({_id: req.params.id}).exec()
+            const file = await fileSchema.findOne({ _id: req.params.id }).exec()
             if (!file) {
                 res.status(404)
                 res.json({ message: 'fail', message: 'file not found' })
@@ -35,10 +35,10 @@ module.exports = (req, res) => {
                 `#EXT-X-TARGETDURATION:${file.targetDuration}`,
                 `#EXT-X-MEDIA-SEQUENCE:0`,
             ]
-            const promises = file.segments.map((segment,index) => {
-                return new Promise((resolve, reject) =>{
+            const promises = file.segments.map((segment, index) => {
+                return new Promise((resolve, reject) => {
                     encoded_url = encodeUrl(segment.uri)
-                    resolve(`${process.env.HOST}/api/hls/${encoded_url}`) 
+                    resolve(`${process.env.HOST}/api/hls/${encoded_url}`)
                 })
             })
             await Promise.all(promises).then(segments => {
@@ -51,13 +51,15 @@ module.exports = (req, res) => {
                 playlist.push('#EXT-X-ENDLIST')
             }).then(() => {
                 const body = playlist.join('\n')
-                redisClient.setex(req.params.id, 20*3600, body, (err) => {
-                    if (err) {
-                        reject(err)
-                    }
-                    res.send(body)
-                    resolve()
-                })
+                // redisClient.setex(req.params.id, 20*3600, body, (err) => {
+                //     if (err) {
+                //         reject(err)
+                //     }
+                //     res.send(body)
+                //     resolve()
+                // })
+                res.send(body)
+
             })
         })
     })
