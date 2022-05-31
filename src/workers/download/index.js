@@ -33,7 +33,7 @@ const worker = new Worker(serviceNames.DOWNLOAD, async job => {
             await uploadQueue.add(fileId, {
                 fileId,
                 playlistUrl,
-                file: file._id
+                id: file._id
             })
         }
         await video.updateOne({

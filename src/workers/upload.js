@@ -18,11 +18,12 @@ console.log(`Starting ${serviceNames.UPLOAD} worker`)
 if (!process.env.DOWNLOAD_DEST) process.env.DOWNLOAD_DEST = 'downloads'
 
 const worker = new Worker(serviceNames.UPLOAD, async job => {
-    const { fileId, file } = job.data
+    const { fileId, id } = job.data
     const video = await videoSchema.findOne({ fileId }).exec()
     if (!video) throw new Error('video not found!')
+    const file = await fileSchema.findOne({ _id: id }).exec()
+    if (!file) throw new Error('file not found!')
     try {
-        const file = await fileSchema.findOne({ _id: file }).exec()
         const segments = file.segments
         const limiter = new Bottleneck({
             maxConcurrent: 100
