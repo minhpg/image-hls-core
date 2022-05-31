@@ -63,7 +63,6 @@ const uploadProcess = async (url, file) => {
     };
     const response = await got.put(url, options)
     const body = response.body
-    console.log(body)
     return body
 }
 

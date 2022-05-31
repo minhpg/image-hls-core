@@ -50,7 +50,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
         throw err
     }
     return
-}, { concurrency: 5, connection: require('../queueConnection') });
+}, { concurrency: 1, connection: require('../queueConnection') });
 
 worker.on('completed', (job) => {
     console.log(`${job.id} has completed!`);
