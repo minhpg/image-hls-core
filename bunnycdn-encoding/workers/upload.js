@@ -44,12 +44,12 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
             }
         })
         await fs.promises.unlink(path)
-        await progressQueue.add(fileId, {
-            fileId, 
-            libraryId: Id, 
-            videoId, 
-            accessKey: ApiKey
-        })
+        // await progressQueue.add(fileId, {
+        //     fileId, 
+        //     libraryId: Id, 
+        //     videoId, 
+        //     accessKey: ApiKey
+        // })
     }
     catch (err) {
         await file.updateOne({

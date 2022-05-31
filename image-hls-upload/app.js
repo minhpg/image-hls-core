@@ -2,12 +2,13 @@ const express = require('express');
 require('dotenv').config()
 const rateLimit = require("express-rate-limit");
 const app = express();
+const bodyParser = require('body-parser')
 require('./db')()
 
 const PORT = process.env.HLS_PORT || 3000
 
 app.set('view engine', 'ejs')
-
+app.use(bodyParser.json())
 app.use('/api', async (req, res, next) => {
     if (process.env.API_KEY) {
         if (req.query.key != process.env.API_KEY) {
@@ -28,7 +29,7 @@ app.get('/api/drive/retry', require('./routes/drive/retries'))
 app.get('/api/drive/retry/:id', require('./routes/drive/retry'))
 app.get('/api/drive/create/:id', require('./routes/drive/create'))
 app.get('/api/drive/get/:id', require('./routes/drive/get'))
-app.get('/api/webhook/:id', require('./routes/webhook'))
+app.get('/api/webhook', require('./routes/webhook'))
 
 app.use('/api/stat', require('./routes/stat'))
 

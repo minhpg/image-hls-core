@@ -12,15 +12,13 @@ module.exports = async (req, res) => {
             const file = await fileSchema.findOne({ _id, uploaded: true }, { segments: false }).exec()
             if (file) files.push(file)
         }
-        console.log(video.files.length)
-        if (files.length = video.files.length) {
+        if (files.length == video.files.length) {
             data = {
                 file: `${process.env.HOST}/api/m3u8/${video._id}/master.m3u8`,
                 type: 'hls'
             }
         }
         else {
-
             if (!video.original) throw new Error('video is processing!')
             data = {
                 file: video.original,

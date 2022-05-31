@@ -1,5 +1,5 @@
 {
-  "name": "picsart-image-hls",
+  "name": "image-hls-core",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "dev-worker": "nodemon src/workers/video.worker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "witherrs",
+  "author": "minhpg",
   "license": "ISC",
   "dependencies": {
     "aria2": "^4.1.2",
@@ -18,6 +18,7 @@
     "axios": "^0.27.2",
     "base-64": "^1.0.0",
     "bee-queue": "^1.4.0",
+    "body-parser": "^1.20.0",
     "bottleneck": "^2.19.5",
     "bull": "^3.22.7",
     "bullmq": "^1.32.0",
