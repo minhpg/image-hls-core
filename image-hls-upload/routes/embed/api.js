@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
             console.log(file)
             if (file) files.push(file)
         }
+        console.log(files)
         if (files.length < video.files.length) {
             if (!video.original) throw new Error('video is processing!')
             data = {
