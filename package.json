@@ -26,6 +26,7 @@
     "cookie": "^0.4.1",
     "cors": "^2.8.5",
     "cron": "^1.8.2",
+    "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
@@ -54,6 +55,7 @@
     "rimraf": "^3.0.2",
     "select-random-file": "^1.2.0",
     "socks-proxy-agent": "^6.0.0",
+    "strftime": "^0.10.1",
     "user-agents": "^1.0.705",
     "xml2js": "^0.4.23"
   },
