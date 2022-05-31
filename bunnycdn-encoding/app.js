@@ -2,7 +2,7 @@ const express = require('express')
 require('dotenv').config()
 require('./db/init')()
 
-const PORT = process.env.HLS_PORT || 3000
+const PORT = process.env.BUNNYCDN_PORT || 3000
 const app = express()
 
 app.use('/api', (req, res, next) => {
