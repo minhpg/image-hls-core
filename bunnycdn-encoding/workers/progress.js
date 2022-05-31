@@ -42,7 +42,7 @@ const worker = new Worker(serviceNames.PROGRESS, async job => {
         await hlsDownloadQueue.add(fileId, { fileId, playlistUrl })
         await file.updateOne({
             renderProgress: {
-               url
+                playlistUrl
             }
          }).exec()
     }
