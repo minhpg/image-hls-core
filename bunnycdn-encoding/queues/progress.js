@@ -3,10 +3,10 @@ const serviceNames = require('../serviceNames')
 const queue = new Queue(serviceNames.PROGRESS,{
     connection: require('../queueConnection'),
     defaultJobOptions: {
-        attempts: 100,
+        attempts: 3,
         backoff: {
             type: 'fixed',
-            delay: 100000,
+            delay: 1000,
         },
     }
 })
