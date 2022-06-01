@@ -3,9 +3,9 @@ const progressQueue = require('../../../bunnycdn-encoding/queues/progress')
 module.exports = async (req, res) => {
     try {
         console.log(req.body)
-        const { VideoLibraryId, VideoGuid } = req.body
+        const { VideoLibraryId, VideoGuid, Status } = req.body
         const file = await fileSchema.findOne({ 'uploadedTo.videoId': VideoGuid, 'uploadedTo.libraryId': VideoLibraryId }).exec()
-        if (file) {
+        if (file && Status == 3) {
             const { id, uploadedTo } = file
             const { libraryId, videoId, libraryAccessKey } = uploadedTo
             await progressQueue.add(id, {
