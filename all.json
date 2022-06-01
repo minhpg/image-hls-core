@@ -33,7 +33,7 @@
         },
         {
             "name": "bunny-clear-worker",
-            "script": "bunnycdn-encoding/workers/clear.js"
+            "script": "bunnycdn-encoding/workers/clearVideos.js"
         }
     ]
 }
