@@ -36,7 +36,6 @@ const getUploadBucket = async () => {
     };
     const response = await axios.request(options)
     const body = response.data
-    console.log(body)
     return body
 }
 
