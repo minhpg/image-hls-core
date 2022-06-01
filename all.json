@@ -30,6 +30,10 @@
         {
             "name": "bunny-progress-worker",
             "script": "bunnycdn-encoding/workers/progress.js"
+        },
+        {
+            "name": "bunny-clear-worker",
+            "script": "bunnycdn-encoding/workers/clear.js"
         }
     ]
 }
