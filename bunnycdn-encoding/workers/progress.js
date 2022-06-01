@@ -20,7 +20,7 @@ const worker = new Worker(serviceNames.PROGRESS, async job => {
     const { fileId,
         libraryId,
         videoId,
-        accessKey } = job.data
+        accessKey, pullZone } = job.data
     console.log(job.data)
     const file = await fileSchema.findOne({ id: fileId }).exec()
     if (!file) throw new Error('file not found')
@@ -38,11 +38,12 @@ const worker = new Worker(serviceNames.PROGRESS, async job => {
            }
         }).exec()
         if(status!=4) throw new Error(statusString)
-        const playlistUrl = await extractPlaylistUrl(libraryId, videoId)
-        await hlsDownloadQueue.add(fileId, { fileId, accessKey, videoId, libraryId, playlistUrl })
+        const playlistUrl = `https://vz-4a1846a9-986.b-cdn.net/${videoId}/playlist.m3u8`//await extractPlaylistUrl(libraryId, videoId)
+        await hlsDownloadQueue.add(fileId, { fileId, accessKey, videoId, libraryId, playlistUrl, pullZone })
         await file.updateOne({
             renderProgress: {
-                playlistUrl
+                playlistUrl,
+                proceedToDownload: true
             }
          }).exec()
     }

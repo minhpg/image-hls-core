@@ -23,8 +23,10 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
     const file = await fileSchema.findOne({ id: fileId }).exec()
     if (!file) throw new Error('file not found')
     try {
+        const accountList = require('../../accounts.json')
+        const { apiKey, pullZone } = accountList[Math.floor(Math.random() * accountList.length)];
         const libraryClient = new BunnyLibrary(
-            process.env.BUNNYCDN_API_KEY
+            apiKey
         )
         const libraries = await libraryClient.listLibraries()
         const index = Math.floor(Math.random() * libraries.length);
@@ -40,6 +42,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
                 uploaded: true,
                 libraryId: Id,
                 videoId,
+                pullZone,
                 libraryAccessKey: ApiKey
             }
         })

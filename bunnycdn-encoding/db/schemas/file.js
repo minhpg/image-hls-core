@@ -15,6 +15,7 @@ const fileSchema = new mongoose.Schema({
         libraryId: String,
         videoId: String,
         libraryAccessKey: String,
+        pullZone: String,
         retry: { type: Number, default: 0},
         error: {
             type: Boolean,
@@ -43,6 +44,10 @@ const fileSchema = new mongoose.Schema({
         progress: Number,
         url: String,
         status: String,
+        proceedToDownload: {
+            type: Boolean,
+            default: false
+        },
         error: {
             type: Boolean,
             default: false
