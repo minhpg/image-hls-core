@@ -13,6 +13,8 @@ module.exports = async (req, res) => {
                 libraryId,
                 videoId,
                 accessKey: libraryAccessKey
+            }, {
+                jobId: id
             })
         }
         res.json({
