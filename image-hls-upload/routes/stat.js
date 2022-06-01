@@ -3,12 +3,19 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/videos', async (req,res) => {
-    const completed_videos = await videoSchema.countDocuments({processing:false,error:false}).exec()
-    const processing = await videoSchema.countDocuments({processing:true}).exec()
+    let doneCount = 0
+    const totalDocuments = await videoSchema.countDocuments({}).exec()
+    const completed_videos = await videoSchema.find({error:false}, {files: true}).exec()
+    const files = []
+    for (const { _id } of video.files) {
+        const file = await fileSchema.findOne({ _id, uploaded: true }, { uploaded: true }).exec()
+        if (file) files.push(file)
+    }
+    if (files.length == video.files.length) doneCount += 1
     const errors = await videoSchema.countDocuments({error:true}).exec()
     res.json({
-        done: completed_videos,
-        processing: processing,
+        done: doneCount,
+        processing: totalDocuments - errors - doneCount,
         errors: errors
     })
     return

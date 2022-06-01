@@ -39,7 +39,7 @@ const worker = new Worker(serviceNames.PROGRESS, async job => {
         }).exec()
         if(status!=4) throw new Error(statusString)
         const playlistUrl = await extractPlaylistUrl(libraryId, videoId)
-        await hlsDownloadQueue.add(fileId, { fileId, playlistUrl })
+        await hlsDownloadQueue.add(fileId, { fileId, accessKey, videoId, libraryId, playlistUrl })
         await file.updateOne({
             renderProgress: {
                 playlistUrl
