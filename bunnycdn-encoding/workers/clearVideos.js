@@ -23,7 +23,7 @@ queue.add(
     { },
     {
       repeat: {
-        every: 1000,
+        every: 1000*60*60*6,
       },
     },
   );
@@ -34,6 +34,7 @@ const worker = new Worker(serviceNames.CLEAR, async job => {
     for(const bunnyFile of bunnyFiles) {
         const  { id } = bunnyFile
         const video = await videoSchema.findOne({ fileId: id}).exec()
+        console.log(video)
         if(video) {
             for (const { _id } of video.files) {
                 const file = await fileSchema.findOne({ _id, uploaded: true }, { uploaded: true }).exec()
