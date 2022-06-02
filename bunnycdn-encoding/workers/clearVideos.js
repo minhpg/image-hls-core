@@ -29,7 +29,7 @@ queue.add(
   );
 
 const worker = new Worker(serviceNames.CLEAR, async job => {
-    const bunnyFiles = bunnyFileSchema.find({ 'renderProgress.proceedToDownload': true}, {id: true}).exec()
+    const bunnyFiles = await bunnyFileSchema.find({ 'renderProgress.proceedToDownload': true}, {id: true}).exec()
     const files = []
     for(const bunnyFile of bunnyFiles) {
         const  { id } = bunnyFile
