@@ -34,9 +34,19 @@ class BunnyVideo {
             console.log(response.data)
             return response.data
         }
-        catch({response}) {
-            console.log(response)
-            throw new BunnyVideoError(response.data)
+        catch(err) {
+            const { response } = err
+            if(response){
+                console.log(response)
+                if(response.data){
+                    throw new BunnyVideoError(response.data)
+                }
+            }
+            else {
+                console.log(err)
+                throw err
+            }
+
         }
     }
 
