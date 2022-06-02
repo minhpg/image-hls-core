@@ -101,10 +101,10 @@ class BunnyVideo {
 }
     
 // const client = new BunnyVideo(
-//     'ec48d559-5d53-47af-92056ae13b66-77ad-429b'
+//     '609d8533-59ba-43ad-b87948dd69d6-3a72-44f1'
 // )
 
 // client.createAndUploadVideo('42171', 'test.mp4')
 // client.uploadVideo('42171','7a372abf-4e1c-403c-9802-487213480d97','test.mp4')
-// client.deleteVideo('42171','c7dcee46-2ebe-460f-b817-7eab45848920')
+// client.deleteVideo('43572','d4e4045d-3d7e-4152-aef1-9506047376e5')
 module.exports = BunnyVideo
