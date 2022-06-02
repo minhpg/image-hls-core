@@ -33,14 +33,14 @@ const worker = new Worker(serviceNames.CLEAR, async job => {
     const files = []
     for(const bunnyFile of bunnyFiles) {
         const  { id } = bunnyFile
-        const video = await videoSchema.findOne({ fileId: id}).exec()
+        const video = await videoSchema.findOne({ fileId: id }).exec()
         console.log(video)
         if(video) {
             for (const { _id } of video.files) {
                 const file = await fileSchema.findOne({ _id, uploaded: true }, { uploaded: true }).exec()
                 if (file) files.push(file)
             }
-            if (files.length == video.files.length) {
+            if (video.files.length!=0 && files.length == video.files.length) {
                 const {libraryAccessKey, videoId, libraryId } = bunnyFile.uploadedTo
                 await bunnyFile.deleteOne()
                 const bunnyClient = new BunnyVideo(libraryAccessKey)

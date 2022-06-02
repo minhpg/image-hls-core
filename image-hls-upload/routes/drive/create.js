@@ -26,6 +26,7 @@ module.exports = async (req,res) => {
             id: fileId
         })
         await new_file.save()
+        console.log(new_file)
         await downloadQueue.add(fileId, {
             fileId 
         })
