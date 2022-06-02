@@ -13,6 +13,7 @@ require('../db/init')()
 console.log(`Starting ${serviceNames.CLEAR} worker`)
 
 const { Queue, QueueScheduler } = require('bullmq')
+const BunnyVideo = require('../bunny-api/video')
 const queue = new Queue(serviceNames.CLEAR,{
     connection: require('../queueConnection'),
 })
@@ -39,7 +40,10 @@ const worker = new Worker(serviceNames.CLEAR, async job => {
                 if (file) files.push(file)
             }
             if (files.length == video.files.length) {
+                const {libraryAccessKey, videoId, libraryId } = bunnyFile.uploadedTo
                 await bunnyFile.deleteOne()
+                const bunnyClient = new BunnyVideo(libraryAccessKey)
+                await bunnyClient.deleteVideo(libraryId, videoId)
                 await video.updateOne({
                     uploaded: true
                 })

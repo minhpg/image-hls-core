@@ -11,11 +11,11 @@ const uploadMP4 = require('../../image-hls-upload/kapwing-api/uploadMP4')
 
 const fs = require('fs')
 
-const progressQueue = require('../queues/progress')
+// const progressQueue = require('../queues/progress')
 
 require('dotenv').config()
 require('../db/init')()
-console.log(`Starting ${serviceNames.PROGRESS} worker`)
+console.log(`Starting ${serviceNames.UPLOAD} worker`)
 
 
 const worker = new Worker(serviceNames.UPLOAD, async job => {

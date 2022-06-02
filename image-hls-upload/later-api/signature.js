@@ -29,7 +29,7 @@ function sha256(str) {
     return Crypto.SHA256(str);
 }
 
-const generateHeaders = (file, access_key, secret_key) => {
+const generateHeaders = (file, access_key, secret_key, invocationId) => {
     // ************* REQUEST VALUES *************
     const method = 'PUT';
     const service = 's3-accelerate';
@@ -44,8 +44,7 @@ const generateHeaders = (file, access_key, secret_key) => {
 
     // ************* TASK 1: CREATE A CANONICAL REQUEST *************
     const canonical_uri = '/';
-    const canonical_querystring = request_parameters;
-    const canonical_headers = 'host:' + host + '\n' + 'x-amz-date:' + amzdate + '\n';
+    const canonical_headers = 'host:' + host + '\n' + 'x-amz-date:' + amzdate + '\n' + 'amz-sdk-invocation-id:' + ;
     const signed_headers = 'amz-sdk-invocation-id;amz-sdk-request;content-length;content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token;x-amz-user-agent';
     const file_hash = getFileHash(file)
 
