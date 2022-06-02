@@ -43,7 +43,7 @@ const worker = new Worker(serviceNames.CLEAR, async job => {
             console.log(files)
             if ((video.files.length!=0) && (files.length == video.files.length)) {
                 const {accessKey, videoId, libraryId } = bunnyFile.uploadedTo
-                const bunnyClient = new BunnyVideo(libraryAccessKey)
+                const bunnyClient = new BunnyVideo(accessKey)
                 await bunnyClient.deleteVideo(libraryId, videoId)
                 await bunnyFile.deleteOne()
                 await video.updateOne({
