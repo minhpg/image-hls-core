@@ -29,7 +29,7 @@ queue.add(
   );
 
 const worker = new Worker(serviceNames.CLEAR, async job => {
-    const bunnyFiles = await bunnyFileSchema.find({ 'renderProgress.proceedToDownload': true}, {id: true}).exec()
+    const bunnyFiles = await bunnyFileSchema.find({ 'renderProgress.proceedToDownload': true}).exec()
     const files = []
     for(const bunnyFile of bunnyFiles) {
         const  { id } = bunnyFile
@@ -42,8 +42,9 @@ const worker = new Worker(serviceNames.CLEAR, async job => {
             }
             console.log(files)
             if ((video.files.length!=0) && (files.length == video.files.length)) {
-                const {accessKey, videoId, libraryId } = bunnyFile.uploadedTo
-                const bunnyClient = new BunnyVideo(accessKey)
+                const {libraryAccessKey, videoId, libraryId } = bunnyFile.uploadedTo
+                console.log()
+                const bunnyClient = new BunnyVideo(libraryAccessKey)
                 await bunnyClient.deleteVideo(libraryId, videoId)
                 await bunnyFile.deleteOne()
                 await video.updateOne({
