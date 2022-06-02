@@ -16,6 +16,7 @@
     "aria2": "^4.1.2",
     "auto-proxy": "^1.0.21",
     "axios": "^0.27.2",
+    "axios-retry": "^3.2.5",
     "base-64": "^1.0.0",
     "bee-queue": "^1.4.0",
     "body-parser": "^1.20.0",

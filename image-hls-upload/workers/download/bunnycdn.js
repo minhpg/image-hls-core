@@ -1,5 +1,8 @@
 const m3u8Parser = require('m3u8-parser')
 const axios = require('axios')
+const axiosRetry = require('axios-retry')
+axiosRetry(axios, { retries: 3 });
+
 const got = require('got')
 const path = require('path')
 const fs = require('fs')
