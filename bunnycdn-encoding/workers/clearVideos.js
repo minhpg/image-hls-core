@@ -40,7 +40,7 @@ const worker = new Worker(serviceNames.CLEAR, async job => {
                 const file = await fileSchema.findOne({ _id, uploaded: true }, { uploaded: true }).exec()
                 if (file) files.push(file)
             }
-            if (video.files.length!=0 && files.length == video.files.length) {
+            if ((video.files.length!=0) && (files.length == video.files.length)) {
                 const {libraryAccessKey, videoId, libraryId } = bunnyFile.uploadedTo
                 const bunnyClient = new BunnyVideo(libraryAccessKey)
                 await bunnyClient.deleteVideo(libraryId, videoId)
