@@ -7,9 +7,9 @@ const hlsDownloadQueue = require('../../image-hls-upload/queues/download')
 
 const BunnyVideo = require('../bunny-api/video')
 
-const fs = require('fs')
-const axios = require('axios')
-const extractPlaylistUrl = require('../bunny-api/extractPlaylistUrl')
+// const fs = require('fs')
+// const axios = require('axios')
+// const extractPlaylistUrl = require('../bunny-api/extractPlaylistUrl')
 
 require('dotenv').config()
 require('../db/init')()
