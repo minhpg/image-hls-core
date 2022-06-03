@@ -2,6 +2,7 @@ const { Worker } = require('bullmq')
 
 const path = require('path')
 
+const sendMessage = require('../../telegram-api/sendMessage')
 const fileSchema = require('../../models/file')
 const videoSchema = require('../../models/video')
 
@@ -43,6 +44,7 @@ const worker = new Worker(serviceNames.DOWNLOAD, async job => {
             error: false, 
             error_message: null,
         }).exec()
+        await sendMessage(`https://drive.google.com/file/d/${file.id} done downloaded\n Queued for upload`)
     }
     catch (err) {
         await video.updateOne({
