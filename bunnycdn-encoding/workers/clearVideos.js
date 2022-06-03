@@ -1,5 +1,6 @@
 const { Worker } = require('bullmq')
-
+const rimraf = require('rimraf')
+const path = require('path')
 
 const { fileSchema: bunnyFileSchema } = require('../db')
 const videoSchema = require('../../image-hls-upload/models/video')
@@ -14,36 +15,40 @@ console.log(`Starting ${serviceNames.CLEAR} worker`)
 
 const { Queue, QueueScheduler } = require('bullmq')
 const BunnyVideo = require('../bunny-api/video')
-const queue = new Queue(serviceNames.CLEAR,{
+const queue = new Queue(serviceNames.CLEAR, {
     connection: require('../queueConnection'),
 })
 const queueScheduler = new QueueScheduler(serviceNames.CLEAR);
 queue.add(
     'clear',
-    { },
+    {},
     {
-      repeat: {
-        every: 1000//*60*60*6,
-      },
+        repeat: {
+            every: 1000//*60*60*6,
+        },
     },
-  );
+);
+
+if (!process.env.DOWNLOAD_DEST) process.env.DOWNLOAD_DEST = 'downloads'
+
 
 const worker = new Worker(serviceNames.CLEAR, async job => {
-    const bunnyFiles = await bunnyFileSchema.find({ 'renderProgress.proceedToDownload': true}).exec()
+    const bunnyFiles = await bunnyFileSchema.find({ 'renderProgress.proceedToDownload': true }).exec()
     const files = []
-    for(const bunnyFile of bunnyFiles) {
-        const  { id } = bunnyFile
+    for (const bunnyFile of bunnyFiles) {
+        const { id } = bunnyFile
         const video = await videoSchema.findOne({ fileId: id }).exec()
         console.log(video)
-        if(video) {
+        if (video) {
             for (const { _id } of video.files) {
                 const file = await fileSchema.findOne({ _id, uploaded: true }, { uploaded: true }).exec()
                 if (file) files.push(file)
             }
             console.log(files)
-            if ((video.files.length!=0) && (files.length == video.files.length)) {
-                const {libraryAccessKey, videoId, libraryId } = bunnyFile.uploadedTo
-                console.log()
+            if ((video.files.length != 0) && (files.length == video.files.length)) {
+                const { libraryAccessKey, videoId, libraryId } = bunnyFile.uploadedTo
+
+                rimraf.sync(path.join(process.env.DOWNLOAD_DEST, id))
                 const bunnyClient = new BunnyVideo(libraryAccessKey)
                 await bunnyClient.deleteVideo(libraryId, videoId)
                 await bunnyFile.deleteOne()
