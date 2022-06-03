@@ -13,7 +13,10 @@ module.exports = async (req,res) => {
         res.end()
     }
     else {
-        const file = await bunnyFileSchema.findOne({ fileId }).exec()
+        const file = await bunnyFileSchema.findOne({ id: fileId }).exec()
+        if(file) await file.deleteOne()
+        const newFile = new bunnyFileSchema({ id: fileId })
+        await newFile.save()
         await downloadQueue.add(fileId, {
             fileId 
         })
