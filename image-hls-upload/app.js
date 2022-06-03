@@ -24,11 +24,11 @@ app.use('/api/private', async (req, res, next) => {
     }
 })
 
-app.get('/api/drive/private/delete/:id', require('./routes/drive/delete'))
-app.get('/api/drive/private/retry', require('./routes/drive/retries'))
-app.get('/api/drive/private/retry/:id', require('./routes/drive/retry'))
-app.get('/api/drive/private/create/:id', require('./routes/drive/create'))
-app.get('/api/drive/private/get/:id', require('./routes/drive/get'))
+app.get('/api/private/drive/delete/:id', require('./routes/drive/delete'))
+app.get('/api/private/drive/retry', require('./routes/drive/retries'))
+app.get('/api/private/drive/retry/:id', require('./routes/drive/retry'))
+app.get('/api/private/drive/create/:id', require('./routes/drive/create'))
+app.get('/api/private/drive/get/:id', require('./routes/drive/get'))
 app.post('/api/webhook', require('./routes/webhook'))
 
 app.use('/api/private/stat', require('./routes/stat'))
