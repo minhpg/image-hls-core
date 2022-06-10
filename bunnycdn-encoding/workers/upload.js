@@ -10,6 +10,7 @@ const BunnyLibrary = require('../bunny-api/library')
 const uploadMP4 = require('../../image-hls-upload/kapwing-api/uploadMP4')
 
 const fs = require('fs')
+const { sendMessage } = require('../../image-hls-upload/telegram-api/sendMessage')
 
 // const progressQueue = require('../queues/progress')
 
@@ -47,6 +48,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
             }
         })
         await fs.promises.unlink(path)
+        await sendMessage(`https://drive.google.com/file/d/${file.id} - done upload to libraryId: ${Id} - videoId: ${videoId} \n`)
         // await progressQueue.add(fileId, {
         //     fileId, 
         //     libraryId: Id, 

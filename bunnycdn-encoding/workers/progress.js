@@ -6,6 +6,7 @@ const { fileSchema } = require('../db')
 const hlsDownloadQueue = require('../../image-hls-upload/queues/download')
 
 const BunnyVideo = require('../bunny-api/video')
+const { sendMessage } = require('../../image-hls-upload/telegram-api/sendMessage')
 
 // const fs = require('fs')
 // const axios = require('axios')
@@ -46,7 +47,7 @@ const worker = new Worker(serviceNames.PROGRESS, async job => {
                 proceedToDownload: true
             }
          }).exec()
-    }
+        }
     catch (err) {
         await file.updateOne({
             renderProgress: {
