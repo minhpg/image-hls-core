@@ -1,7 +1,7 @@
 const { Worker } = require('bullmq')
 
 const path = require('path')
-const {sendMessage} = require('../telegram-api/sendMessage')
+// const {sendMessage} = require('../telegram-api/sendMessage')
 const rimraf = require('rimraf')
 const Bottleneck = require('bottleneck')
 
