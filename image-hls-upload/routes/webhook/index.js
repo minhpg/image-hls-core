@@ -1,6 +1,6 @@
 const { fileSchema } = require('../../../bunnycdn-encoding/db')
 const progressQueue = require('../../../bunnycdn-encoding/queues/progress')
-const sendMessage = require('../../telegram-api/sendMessage')
+// const sendMessage = require('../../telegram-api/sendMessage')
 
 module.exports = async (req, res) => {
     try {
