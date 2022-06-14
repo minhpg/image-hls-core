@@ -111,7 +111,8 @@ const upload = async (file, groupdId, token, email) => {
     const filename = `uploads-${uuid.v4()}.png`
     await fileUpload({ ...credentials, filename, file })
     const response = await finalize(filename, groupdId, token, email)
-    console.log(response.media_item.image_key)
+    console.log(`uploaded ${file} to https://d2my7ce9a6d57i.cloudfront.net/${response.media_item.image_key}`)
+    return 'https://d2my7ce9a6d57i.cloudfront.net/'+response.media_item.image_key
 }
 
-upload('base.png')
+module.exports = upload
