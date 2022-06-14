@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
         console.log(req.body)
         const { VideoLibraryId, VideoGuid, Status } = req.body
         const file = await fileSchema.findOne({ 'uploadedTo.videoId': VideoGuid, 'uploadedTo.libraryId': VideoLibraryId }).exec()
-		await sendMessage(`https://drive.google.com/file/d/${file.id} status: ${Status}`)
+		// await sendMessage(`https://drive.google.com/file/d/${file.id} status: ${Status}`)
         if (file && Status == 3) {
             await sendMessage(`https://drive.google.com/file/d/${file.id} done encoding!\n https://video.bunnycdn.com/play/${VideoLibraryId}/${VideoGuid}`)
             const { id, uploadedTo } = file
