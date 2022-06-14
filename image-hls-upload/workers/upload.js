@@ -46,7 +46,7 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
         await file.updateOne({
             segments, uploaded: true, error: false, error_message: null,
         }).exec()
-        await sendMessage(`https://drive.google.com/file/d/${file.id} - ${file.res}p done upload\n`)
+        // await sendMessage(`https://drive.google.com/file/d/${file.id} - ${file.res}p done upload\n`)
     }
     catch (err) {
         await file.updateOne({

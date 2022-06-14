@@ -17,4 +17,4 @@ const report = async (message) => {
     const response = await got.get(`https://api.telegram.org/bot1972163415:AAEDG445kPNXR4feLN8yZSAUHz20Gs3g5kk/sendMessage?chat_id=-460532425&text=${qs.escape(message)}`)
 }
 
-module.exports = {sendMessage,report}
+module.exports = { sendMessage, report }
