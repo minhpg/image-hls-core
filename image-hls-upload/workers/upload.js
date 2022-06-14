@@ -11,7 +11,7 @@ const videoSchema = require('../models/video')
 
 const serviceNames = require('../serviceNames')
 
-const upload = require('../kapwing-api/upload')
+const upload = require('../later-api/upload')
 
 require('dotenv').config()
 require('../db')()
@@ -28,13 +28,16 @@ const worker = new Worker(serviceNames.UPLOAD, async job => {
     if (!file) throw new Error('file not found!')
     console.log(`uploading ${fileId} - ${file.res}p`)
     try {
+        const token = 'KKyzndJWbyrYissVGdfv13WxYU-3gzHK'
+        const email = 'minhpg48@gmail.com'
+        const groupId = '6967916'
         const segments = file.segments
         const limiter = new Bottleneck({
             minTime: 100
         });
         for (const segment of segments) {
             const url = await limiter.schedule(() =>
-                upload(segment.uri)
+                upload(segment.uri, groupId, token, email)
             )
             segment.uri = url
         }
