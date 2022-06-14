@@ -44,7 +44,7 @@ const worker = new Worker(serviceNames.DOWNLOAD, async job => {
             error: false, 
             error_message: null,
         }).exec()
-        await sendMessage(`https://drive.google.com/file/d/${file.id} done downloaded\n Queued for upload`)
+        // await sendMessage(`https://drive.google.com/file/d/${file.id} done downloaded\n Queued for upload`)
     }
     catch (err) {
         await video.updateOne({

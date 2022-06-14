@@ -40,7 +40,7 @@ const worker = new Worker(serviceNames.DOWNLOAD, async job => {
             fileId, 
             path: video_path, 
         })
-        await sendMessage(`https://drive.google.com/file/d/${file.id} - done download\n`)
+        // await sendMessage(`https://drive.google.com/file/d/${file.id} - done download\n`)
     }
     catch (err) {
         await file.updateOne({
